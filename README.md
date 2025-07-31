@@ -1,7 +1,7 @@
 # CS416 Narrative Visualization
 
 Access via `https://ngomes16.github.io/CS416_Narrative_Visualization`
-This project is has a visualization about Chicago's Divvy bike-sharing data, comparing usage patterns between members and casual riders.
+This project has a visualization about Chicago's Divvy bike-sharing data, comparing usage patterns between members and casual riders.
 
 ## Project Structure
 
