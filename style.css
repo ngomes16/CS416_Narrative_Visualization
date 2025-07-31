@@ -12,6 +12,23 @@ body {
     width: 900px;
     text-align: center;
     margin-bottom: 1em;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#scene-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#scene-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
 }
 
 #vis-container {
@@ -19,6 +36,8 @@ body {
     height: 550px;
     border: 1px solid #ccc;
     background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #navigation {
@@ -31,6 +50,14 @@ button {
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin: 0 10px;
+    background-color: #fff;
+    transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
 }
 
 button:disabled {
@@ -55,10 +82,25 @@ button:disabled {
     shape-rendering: crispEdges;
 }
 
+.grid line {
+    stroke: #ddd;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+
 .member-color {
-    fill: #1f77b4; /* Blue */
+    fill: #1f77b4; 
 }
 
 .casual-color {
-    fill: #ff7f0e; /* Orange */
+    fill: #ff7f0e; 
+}
+
+.legend text {
+    font-size: 12px;
+    font-weight: 500;
 }
