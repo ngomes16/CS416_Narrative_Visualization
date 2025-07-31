@@ -1,4 +1,3 @@
-
 let currentScene = 0;
 const totalScenes = 4; 
 
@@ -84,6 +83,8 @@ function init() {
 function drawScene() {
     console.log("Drawing scene:", currentScene);
     
+    d3.selectAll(".tooltip").remove();
+    
     svg.selectAll("*").remove();
 
     d3.select("#prev-button").property("disabled", currentScene === 0);
@@ -113,7 +114,7 @@ function drawScene() {
 
 function drawScene0() {
     d3.select("#scene-title").text("Scene 1: The Network's Pulse");
-    d3.select("#scene-description").text("The Divvy network is across Chicago, but usage is heavily concentrated in popular areas.");
+    d3.select("#scene-description").text("Chicago's Divvy network serves riders across the city, but usage is heavily concentrated in popular areas.");
 
     const x = d3.scaleLinear()
         .domain(d3.extent(stationData, d => d.lng))
@@ -147,6 +148,18 @@ function drawScene0() {
         .domain([0, d3.max(stationData, d => d.trip_count)])
         .range([2, 20]); 
 
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .style("background-color", "white")
+        .style("border", "1px solid #333")
+        .style("border-radius", "5px")
+        .style("padding", "8px")
+        .style("font-size", "12px")
+        .style("pointer-events", "none")
+        .style("z-index", "1000");
+
     svg.selectAll("circle")
         .data(stationData)
         .enter().append("circle")
@@ -157,9 +170,25 @@ function drawScene0() {
         .attr("opacity", 0.6)
         .on("mouseover", function(event, d) {
             d3.select(this).attr("opacity", 1);
+            
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 1);
+                
+            tooltip.html(`
+                <strong>${d.start_station_name}</strong><br/>
+                Trip Count: ${d.trip_count.toLocaleString()}<br/>
+                Location: (${d.lat.toFixed(4)}, ${d.lng.toFixed(4)})
+            `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
         })
         .on("mouseout", function(event, d) {
             d3.select(this).attr("opacity", 0.6);
+            
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
         });
         
     svg.append("text")
@@ -173,7 +202,19 @@ function drawScene0() {
 
 function drawScene1() {
     d3.select("#scene-title").text("Scene 2: The Commute vs. The Cruise");
-    d3.select("#scene-description").text("Members take shorter trips, while casual riders enjoy longer ones.");
+    d3.select("#scene-description").text("Members primarily take short, direct trips, while casual riders enjoy longer, more leisurely rides.");
+
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .style("background-color", "white")
+        .style("border", "1px solid #333")
+        .style("border-radius", "5px")
+        .style("padding", "8px")
+        .style("font-size", "12px")
+        .style("pointer-events", "none")
+        .style("z-index", "1000");
 
     const groups = durationData.map(d => d.duration_bin);
     const maxCount = d3.max(durationData, d => Math.max(d.member_count, d.casual_count));
@@ -221,9 +262,24 @@ function drawScene1() {
         .attr("height", d => height - y(d.member_count))
         .on("mouseover", function(event, d) {
             d3.select(this).attr("opacity", 0.8);
+            
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 1);
+                
+            tooltip.html(`
+                <strong>Members - ${d.duration_bin}</strong><br/>
+                Trip Count: ${d.member_count.toLocaleString()}
+            `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
         })
         .on("mouseout", function(event, d) {
             d3.select(this).attr("opacity", 1);
+            
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
         });
         
     svg.selectAll("rect.casual")
@@ -237,9 +293,24 @@ function drawScene1() {
         .attr("height", d => height - y(d.casual_count))
         .on("mouseover", function(event, d) {
             d3.select(this).attr("opacity", 0.8);
+            
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 1);
+                
+            tooltip.html(`
+                <strong>Casual Riders - ${d.duration_bin}</strong><br/>
+                Trip Count: ${d.casual_count.toLocaleString()}
+            `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
         })
         .on("mouseout", function(event, d) {
             d3.select(this).attr("opacity", 1);
+            
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
         });
         
     const legend = svg.append("g")
@@ -274,7 +345,19 @@ function drawScene1() {
 
 function drawScene2() {
     d3.select("#scene-title").text("Scene 3: Weekday Warriors & Weekend Wanderers");
-    d3.select("#scene-description").text("We see a commuter profile (8 AM/5 PM peaks) for members and a leisure profile for casual users.");
+    d3.select("#scene-description").text("Riding times reveal a classic commuter profile for members (8 AM/5 PM peaks) and a leisure profile for casual users.");
+
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .style("background-color", "white")
+        .style("border", "1px solid #333")
+        .style("border-radius", "5px")
+        .style("padding", "8px")
+        .style("font-size", "12px")
+        .style("pointer-events", "none")
+        .style("z-index", "1000");
 
     const maxCount = d3.max(hourlyData, d => Math.max(d.member_count, d.casual_count));
 
@@ -341,9 +424,24 @@ function drawScene2() {
         .attr("r", 3)
         .on("mouseover", function(event, d) {
             d3.select(this).attr("r", 5);
+            
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 1);
+                
+            tooltip.html(`
+                <strong>Members - ${d.start_hour}:00</strong><br/>
+                Trip Count: ${d.member_count.toLocaleString()}
+            `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
         })
         .on("mouseout", function(event, d) {
             d3.select(this).attr("r", 3);
+            
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
         });
         
     svg.selectAll("circle.casual")
@@ -356,9 +454,24 @@ function drawScene2() {
         .attr("r", 3)
         .on("mouseover", function(event, d) {
             d3.select(this).attr("r", 5);
+            
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", 1);
+                
+            tooltip.html(`
+                <strong>Casual Riders - ${d.start_hour}:00</strong><br/>
+                Trip Count: ${d.casual_count.toLocaleString()}
+            `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
         })
         .on("mouseout", function(event, d) {
             d3.select(this).attr("r", 3);
+            
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
         });
         
     const legend = svg.append("g")
