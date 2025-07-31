@@ -113,7 +113,7 @@ function drawScene() {
 
 function drawScene0() {
     d3.select("#scene-title").text("Scene 1: The Network's Pulse");
-    d3.select("#scene-description").text("Chicago's Divvy network serves riders across the city, but usage is heavily concentrated in popular areas.");
+    d3.select("#scene-description").text("The Divvy network is across Chicago, but usage is heavily concentrated in popular areas.");
 
     const x = d3.scaleLinear()
         .domain(d3.extent(stationData, d => d.lng))
@@ -173,7 +173,7 @@ function drawScene0() {
 
 function drawScene1() {
     d3.select("#scene-title").text("Scene 2: The Commute vs. The Cruise");
-    d3.select("#scene-description").text("Members primarily take short, direct trips, while casual riders enjoy longer, more leisurely rides.");
+    d3.select("#scene-description").text("Members take shorter trips, while casual riders enjoy longer ones.");
 
     const groups = durationData.map(d => d.duration_bin);
     const maxCount = d3.max(durationData, d => Math.max(d.member_count, d.casual_count));
@@ -274,7 +274,7 @@ function drawScene1() {
 
 function drawScene2() {
     d3.select("#scene-title").text("Scene 3: Weekday Warriors & Weekend Wanderers");
-    d3.select("#scene-description").text("Riding times reveal a classic commuter profile for members (8 AM/5 PM peaks) and a leisure profile for casual users.");
+    d3.select("#scene-description").text("We see a commuter profile (8 AM/5 PM peaks) for members and a leisure profile for casual users.");
 
     const maxCount = d3.max(hourlyData, d => Math.max(d.member_count, d.casual_count));
 
