@@ -148,17 +148,6 @@ function drawScene0() {
         .domain([0, d3.max(stationData, d => d.trip_count)])
         .range([2, 20]); 
 
-    const tooltip = d3.select("body").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0)
-        .style("position", "absolute")
-        .style("background-color", "white")
-        .style("border", "1px solid #333")
-        .style("border-radius", "5px")
-        .style("padding", "8px")
-        .style("font-size", "12px")
-        .style("pointer-events", "none")
-        .style("z-index", "1000");
 
     svg.selectAll("circle")
         .data(stationData)
