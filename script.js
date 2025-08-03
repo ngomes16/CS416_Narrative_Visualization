@@ -497,7 +497,7 @@ function drawScene2() {
 
 function drawScene3() {
     d3.select("#scene-title").text("Scene 4: Explore Rider Routes");
-    d3.select("#scene-description").text("Interactive exploration of station data. Click on stations to see details.");
+    d3.select("#scene-description").text("Interactive exploration of station data. Click on stations to see details. You will notice that the higher station counts are in the downotown coordinates, which correlate to the commuter counts from the previous slide.");
 
     const x = d3.scaleLinear()
         .domain(d3.extent(stationData, d => d.lng))
