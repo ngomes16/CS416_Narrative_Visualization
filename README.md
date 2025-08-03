@@ -20,6 +20,7 @@ This project has a visualization about Chicago's Divvy bike-sharing data, compar
 - `data/station_trip_counts.csv` - Station locations and trip counts
 - `data/trip_duration_distribution.csv` - Trip duration patterns by rider type
 - `data/trips_by_hour.csv` - Hourly usage patterns
+-  It is important to note that only around 73% of the original data was used because not all of the provided data was clean enough to use. 
 
 ## Technologies Used
 
@@ -29,11 +30,11 @@ This project has a visualization about Chicago's Divvy bike-sharing data, compar
 
 ## Features
 
-- **Scenes**: Four distinct scenes with different visualizations
+- **Scenes**: Four scenes with different visualizations
 - **Annotations**: Interactive annotations using d3-annotation library
 - **Parameters**: State management for scene navigation
 - **Triggers**: Button clicks and mouse interactions
-- **Responsive Design**: Clean, modern UI with hover effects
+- **Responsive Design**: UI with hover effects
 
 ## Navigation
 
